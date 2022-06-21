@@ -1,6 +1,6 @@
 let painting = false;
 let eraserToggle = true;
-let penWidth = 5;
+let penWidth = 4;
 let penColor = "blue";
 let lastWidth;
 let lastColor;
@@ -8,8 +8,8 @@ let timeout = [];
 // select canvas
 const canvas1 = document.querySelector("#one");
 const ctx1 = canvas1.getContext("2d");
-const w = 200;
-const h = 200;
+const w = 1000;
+const h = 500;
 canvas1.width = w;
 canvas1.height = h;
 
@@ -26,7 +26,7 @@ canvas1.height = h;
 
 //! try with text
 // draw white background
-ctx1.rect(0, 0, 200, 200);
+ctx1.rect(0, 0, 1000, 500);
 ctx1.fillStyle = "white";
 ctx1.fill();
 ctx1.beginPath();
@@ -34,23 +34,23 @@ ctx1.beginPath();
 const font = "150px serif";
 const lineWidth = 5;
 const textAlign = "left";
-const letter = ["ت", 0, 100];
+const letter = ["ضـ ـضـ ـض", 0, 100];
 
 // draw text as fallback to fill the space between dashes
 ctx1.font = font;
 ctx1.lineWidth = lineWidth;
 ctx1.textAlign = textAlign;
-ctx1.fillStyle = "#eee";
+ctx1.fillStyle = "#c7c7c7";
 ctx1.fillText(...letter);
 ctx1.beginPath();
 
-// draw desired text
-ctx1.font = font;
-ctx1.lineWidth = 2;
-ctx1.textAlign = textAlign;
-ctx1.setLineDash([5, 7]);
-ctx1.strokeStyle = "#000";
-ctx1.strokeText(...letter);
+// // draw desired text
+// ctx1.font = font;
+// ctx1.lineWidth = 2;
+// ctx1.textAlign = textAlign;
+// ctx1.setLineDash([5, 7]);
+// ctx1.strokeStyle = "#000";
+// ctx1.strokeText(...letter);
 
 const data = getNonWhitePos(ctx1, w, h);
 console.log("getNonWhitePos", data);
