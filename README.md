@@ -1,5 +1,4 @@
 > A simple detector for filling dashed letters 
 
 ### Todo List
-* support touch screens
-* make it responsive
+* fix on real touch screens (currently it works fine with desktop browser touch mode)
