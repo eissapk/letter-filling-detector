@@ -1,26 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>letter filling detector</title>
+    <link rel="stylesheet" href="olum-ui.min.css" />
+    <script defer="defer" src="olum-ui.min.js"></script>
+    <script defer="defer" src="app.js"></script>
     <style>
       body {
         margin: 0;
       }
-      canvas {
+      main {
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        grid-template-rows: 1fr;
+        grid-gap: 25px;
+        justify-content: center;
+        align-content: center;
+        align-items: start !important;
+        margin: 50px 0;
+      }
+      .letter {
+        position: relative;
+        box-shadow: 0 0 1px 0px rgba(0, 0, 0, 05);
+      }
+      .letter canvas {
         display: block;
         position: absolute;
-        left: 0;
-        top: 0;
+      }
+      .layer {
+        margin: 2px;
       }
     </style>
   </head>
   <body>
-    <canvas id="one"></canvas>
-    <canvas id="two"></canvas>
-
-    <script src="app.js"></script>
+    <!-- w,h,y -->
+    <main>
+      <div class="letter">
+        <canvas class="origin" data-dim="190x105x70" data-letter="ـض"></canvas>
+      </div>
+      <div class="letter">
+        <canvas class="origin" data-dim="190x70x70" data-letter="ـضـ"></canvas>
+      </div>
+      <div class="letter">
+        <canvas class="origin" data-dim="150x70x70" data-letter="ضـ"></canvas>
+      </div>
+    </main>
   </body>
 </html>
