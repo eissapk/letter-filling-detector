@@ -14,8 +14,8 @@
       }
       main {
         display: grid;
-        grid-template-columns: repeat(3, auto);
-        grid-template-rows: 1fr;
+        grid-template-columns: 1fr;
+        justify-items: center;
         grid-gap: 25px;
         justify-content: center;
         align-content: center;
@@ -32,6 +32,13 @@
       }
       .layer {
         margin: 2px;
+      }
+      
+      @media (min-width: 600px) {
+        main {
+          grid-template-columns: repeat(3, auto);
+          grid-template-rows: 1fr;
+        }
       }
     </style>
   </head>
