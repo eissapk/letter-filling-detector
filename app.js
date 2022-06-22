@@ -89,6 +89,19 @@ origins.forEach((origin, index) => {
     }
   };
 
+  const touchPos = e => {
+    let status = e.type == "touchstart" ? true : false;
+    if (status) {
+      // touch start
+      painting = true;
+      draw_via_touch(e);
+    } else {
+      // touch end
+      painting = false;
+      layerCTX.beginPath();
+    }
+  };
+
   const draw_via_mouse = e => {
     e.preventDefault();
     const parent = e.target.parentElement;
@@ -96,6 +109,13 @@ origins.forEach((origin, index) => {
     let x = e.clientX - parent.offsetLeft + window.scrollX;
     let y = e.clientY - parent.offsetTop + window.scrollY;
     if (!painting) return;
+
+    if (x >= 0 && x <= e.target.offsetWidth && y >= 0 && y <= e.target.offsetHeight) {
+      console.log("inside borders");
+    } else {
+      console.log("outside borders");
+      return (painting = false);
+    }
 
     layerCTX.lineWidth = penWidth;
     layerCTX.lineCap = "round";
@@ -129,7 +149,56 @@ origins.forEach((origin, index) => {
     }
   };
 
+  const draw_via_touch = e => {
+    e.preventDefault();
+    const parent = e.target.parentElement;
+    e = e || window.event;
+    let x = e.touches[0].pageX - parent.offsetLeft + window.scrollX;
+    let y = e.touches[0].pageY - parent.offsetTop + window.scrollY;
+    if (!painting) return;
+
+    if (x >= 0 && x <= e.target.offsetWidth && y >= 0 && y <= e.target.offsetHeight) {
+      console.log("inside borders");
+    } else {
+      console.log("outside borders");
+      return (painting = false);
+    }
+
+    layerCTX.lineWidth = penWidth;
+    layerCTX.lineCap = "round";
+    layerCTX.strokeStyle = penColor;
+    layerCTX.lineTo(x, y);
+    layerCTX.stroke();
+    layerCTX.beginPath();
+    layerCTX.moveTo(x, y);
+
+    console.log({ x, y });
+
+    // check coords
+    const obj = originsDataArr[index].find(item => item.x === x && item.y === y);
+    console.log(obj);
+    if (obj) {
+      console.warn("inside");
+    } else {
+      console.warn("outside");
+      painting = false;
+      oConfirm({
+        title: "Hint",
+        desc: `You drew outside the letter ${letter}. Do you want to start over?`,
+        btns: { cancel: { exists: true, text: "Cancel" }, okay: { text: "Okay" } },
+      }).then(res => {
+        if (res) {
+          reset(layerCTX);
+          handelOrigin(originCTX, letter, Number(W), Number(H), Number(Y));
+        } else {
+          console.log("cancel");
+        }
+      });
+    }
+  };
+
   // events
+  // desktop
   layer.onmousedown = mousePos;
   layer.onmouseup = mousePos;
   layer.onmousemove = draw_via_mouse;
@@ -138,4 +207,8 @@ origins.forEach((origin, index) => {
     layerCTX.beginPath();
     console.log("Out Board: " + index);
   };
+  // mobile
+  layer.ontouchstart = touchPos;
+  layer.ontouchend = touchPos;
+  layer.ontouchmove = draw_via_touch;
 });
