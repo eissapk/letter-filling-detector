@@ -35,7 +35,7 @@ function handelOrigin(ctx, letter, w, h, y) {
   ctx.fill();
   ctx.beginPath();
 
-  const font = "150px serif";
+  const font = "150px Aerial";
   const lineWidth = 5;
   const textAlign = "left";
 
@@ -60,8 +60,8 @@ origins.forEach((origin, index) => {
   layer.className = "layer";
   origin.width = Number(W);
   origin.height = Number(H);
-  layer.width = Number(W) - 4;
-  layer.height = Number(H) - 4;
+  layer.width = Number(W);
+  layer.height = Number(H);
   parent.style.width = W + "px";
   parent.style.height = H + "px";
   origin.parentElement.append(layer);
@@ -103,19 +103,13 @@ origins.forEach((origin, index) => {
   };
 
   const draw_via_mouse = e => {
-    e.preventDefault();
     const parent = e.target.parentElement;
     e = e || window.event;
     let x = e.clientX - parent.offsetLeft + window.scrollX;
     let y = e.clientY - parent.offsetTop + window.scrollY;
-    if (!painting) return;
 
-    if (x >= 0 && x <= e.target.offsetWidth && y >= 0 && y <= e.target.offsetHeight) {
-      console.log("inside borders");
-    } else {
-      console.log("outside borders");
-      return (painting = false);
-    }
+    console.log({ x, y });
+    if (!painting || x <= 0 || x >= e.target.offsetWidth || y <= 0 || y >= e.target.offsetHeight) return (painting = false);
 
     layerCTX.lineWidth = penWidth;
     layerCTX.lineCap = "round";
@@ -124,8 +118,6 @@ origins.forEach((origin, index) => {
     layerCTX.stroke();
     layerCTX.beginPath();
     layerCTX.moveTo(x, y);
-
-    console.log({ x, y });
 
     // check coords
     const obj = originsDataArr[index].find(item => item.x === x && item.y === y);
@@ -150,19 +142,13 @@ origins.forEach((origin, index) => {
   };
 
   const draw_via_touch = e => {
-    e.preventDefault();
     const parent = e.target.parentElement;
     e = e || window.event;
     let x = e.touches[0].pageX - parent.offsetLeft + window.scrollX;
     let y = e.touches[0].pageY - parent.offsetTop + window.scrollY;
-    if (!painting) return;
 
-    if (x >= 0 && x <= e.target.offsetWidth && y >= 0 && y <= e.target.offsetHeight) {
-      console.log("inside borders");
-    } else {
-      console.log("outside borders");
-      return (painting = false);
-    }
+    console.log({ x, y });
+    if (!painting || x <= 0 || x >= e.target.offsetWidth || y <= 0 || y >= e.target.offsetHeight) return (painting = false);
 
     layerCTX.lineWidth = penWidth;
     layerCTX.lineCap = "round";
@@ -171,8 +157,6 @@ origins.forEach((origin, index) => {
     layerCTX.stroke();
     layerCTX.beginPath();
     layerCTX.moveTo(x, y);
-
-    console.log({ x, y });
 
     // check coords
     const obj = originsDataArr[index].find(item => item.x === x && item.y === y);
