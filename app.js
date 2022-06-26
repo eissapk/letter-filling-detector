@@ -1,13 +1,19 @@
+const originsDataArr = [];
+const origins = document.querySelectorAll(".origin");
+console.log(origins);
+
 let painting = false;
 let penWidth = 3;
 let penColor = "black";
-const font = "bold 80px Cairo";
 const textAlign = "center";
 const textColor = "#c7c7c7";
-const originsDataArr = [];
-const origins = document.querySelectorAll(".origin");
-var myFont = new FontFace("Cairo", "url(/font.woff2)");
-console.log(origins);
+
+let fontFamily = ["Cairo","url(/cairo.woff2)"];
+fontFamily =  ["Tajawal","url(/tajwal.woff2)"];
+
+let font = "bold 80px Tajawal";
+
+var myFont = new FontFace(...fontFamily);
 
 function getNonWhitePos(ctx, w, h, cb) {
   // start taken from stackoverflow
