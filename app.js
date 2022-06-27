@@ -8,8 +8,8 @@ let penColor = "black";
 const textAlign = "center";
 const textColor = "#c7c7c7";
 
-let fontFamily = ["Cairo","url(/cairo.woff2)"];
-fontFamily =  ["Tajawal","url(/tajwal.woff2)"];
+let fontFamily = ["Cairo","url(/letter-filling-detector/cairo.woff2)"];
+fontFamily =  ["Tajawal","url(/letter-filling-detector/tajwal.woff2)"];
 
 let font = "bold 80px Tajawal";
 
